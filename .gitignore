@@ -1,0 +1,48 @@
+# Compilación
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+launchSettings.json
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+
+# Pruebas y cobertura
+TestResults/
+*.trx
+coverage*.xml
+*.coverage
+
+# Revit: copias de seguridad y diarios
+*.0???.rvt
+*.0???.rfa
+*.slog
+journal.*.txt
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.log
+
+# Secretos
+*.pfx
+*.snk
+.env

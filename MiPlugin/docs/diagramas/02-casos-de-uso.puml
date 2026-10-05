@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+actor "Usuario de Revit" as U
+rectangle Plugin {
+  U --> (Medir elementos)
+  U --> (Filtrar elementos)
+  U --> (Modificar parámetro)
+  U --> (Exportar a Excel)
+  (Exportar a Excel) ..> (Medir elementos) : <<include>>
+}
+@enduml

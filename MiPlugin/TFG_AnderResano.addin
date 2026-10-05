@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>MiPlugin</Name>
+		<Assembly>C:\Users\ander\source\repos\TFG\PluginAnder\MiPlugin\bin\Debug\net8.0-windows\MiPlugin.dll</Assembly>
+		<AddInId>655C109A-2852-47B0-B8B2-983DFC2A3085</AddInId>
+		<FullClassName>MiPlugin.App</FullClassName>
+		<VendorId>ARSolutions</VendorId>
+		<VendorDescription>Ander - Plugin TFG DAM</VendorDescription>
+	</AddIn>
+</RevitAddIns>

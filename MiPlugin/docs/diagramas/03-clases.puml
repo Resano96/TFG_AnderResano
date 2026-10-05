@@ -1,0 +1,48 @@
+@startuml
+interface IExternalApplication
+interface IExternalCommand
+
+class App {
+  +OnStartup(app) : Result
+  +OnShutdown(app) : Result
+}
+class RibbonBuilder {
+  -_app : UIControlledApplication
+  +Create() : void
+}
+class MedirCommand {
+  +Execute(commandData, message, elements) : Result
+}
+class RevitElementReader {
+  +LeerSeleccion() : IEnumerable<Medicion>
+}
+
+interface IElementReader {
+  +LeerSeleccion() : IEnumerable<Medicion>
+}
+class Medicion {
+  +Id : string
+  +Categoria : string
+  +Longitud : double
+  +Area : double
+  +Volumen : double
+}
+class MedicionService {
+  +CalcularTotales(mediciones) : ResumenMedicion
+}
+class ResumenMedicion {
+  +NumeroElementos : int
+  +LongitudTotal : double
+  +AreaTotal : double
+  +VolumenTotal : double
+}
+
+App ..|> IExternalApplication
+MedirCommand ..|> IExternalCommand
+App --> RibbonBuilder
+MedirCommand --> IElementReader
+MedirCommand --> MedicionService
+RevitElementReader ..|> IElementReader
+MedicionService --> Medicion
+MedicionService --> ResumenMedicion
+@enduml
