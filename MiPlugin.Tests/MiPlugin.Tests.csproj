@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MiPlugin.Core\MiPlugin.Domain.csproj" />
+    <ProjectReference Include="..\MiPlugin.Domain\MiPlugin.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
