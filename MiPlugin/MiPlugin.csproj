@@ -13,7 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MiPlugin.Core\MiPlugin.Core.csproj" />
+    <ProjectReference Include="..\MiPlugin.Core\MiPlugin.Domain.csproj" />
+    <ProjectReference Include="..\MiPlugin.UI\MiPlugin.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -32,9 +32,9 @@ namespace MiPlugin.Ribbon
             panel.AddItem(btn);
         }
         //Variables
-        private static string _tabName = "Hola";
-        private static string _panelName = "Que";
-        private static string _btnName = "Tal";
+        private static string _tabName = "TFG-AnderResano";
+        private static string _panelName = "TFG-AnderResano";
+        private static string _btnName = "TFG-AnderResano";
 
 
     }

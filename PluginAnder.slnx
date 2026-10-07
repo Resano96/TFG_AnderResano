@@ -1,5 +1,6 @@
 <Solution>
-  <Project Path="MiPlugin.Core/MiPlugin.Core.csproj" Id="1a930afe-aebf-4d6d-ba30-6ffabc7c463d" />
+  <Project Path="MiPlugin.Core/MiPlugin.Domain.csproj" Id="1a930afe-aebf-4d6d-ba30-6ffabc7c463d" />
   <Project Path="MiPlugin.Tests/MiPlugin.Tests.csproj" Id="0fb83649-d18a-4e62-ac76-0c7b72182652" />
+  <Project Path="MiPlugin.UI/MiPlugin.UI.csproj" Id="133a2f35-9095-4a3f-bcd5-f013ef77d43e" />
   <Project Path="MiPlugin/MiPlugin.csproj" />
 </Solution>
