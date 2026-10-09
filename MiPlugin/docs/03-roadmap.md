@@ -1,63 +1,52 @@
 # Roadmap
 
-Plan de trabajo por hitos. Los códigos R0x remiten al RFTP de la memoria. Depende de la decisión D10 (alcance); si se reduce a mediciones, los hitos 4 y 5 pasan a trabajos futuros y sus horas se reparten en el hito 3.
+Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los códigos R0x remiten al RFTP de la memoria.
 
 ## Hito 0 — Base del plugin (hecho)
 
 - [x] Proyecto, manifiesto y carga en Revit
 - [x] Pestaña, panel y botón propios
-- [x] Comando que lee un elemento seleccionado
-- [x] Proyecto `MiPlugin.Core` y primera clase de modelo
+- [x] Repositorio Git en GitHub con `.gitignore`
 
-## Hito 1 — Primera entrega parcial (9 de octubre de 2026)
+## Hito 1 — Estructura y modelo (en curso)
 
-Objetivo: reflejar el 50 % del trabajo, con estructura, memoria, módulos y objetivos definidos.
+- [x] Solución en proyectos: Domain, UI, MiPlugin y Tests
+- [x] Código traducido a inglés
+- [x] `Measurement` y `MeasurementGroup`
+- [x] `MiPlugin.Infrastructure` eliminado (D15)
+- [ ] Correcciones: `ButtonCommand` público, `OnShutdown` sin excepción
+- [ ] Quitar `Perimeter` y `TotalPerimeter` de `Measurement` y `MeasurementGroup`
+- [ ] Borrar la carpeta sobrante `MiPlugin.Core` (solo contiene `obj`)
+- [ ] Memoria de la primera entrega parcial
 
-- [ ] Confirmar con el tutor la arquitectura (D03) y el alcance (D10)
-- [ ] Correcciones pendientes del código (ver `01-pasos-dados.md`)
-- [ ] Medición de un muro correcta y en metros, de punta a punta
-- [ ] Proyecto `MiPlugin.Tests` con los primeros tests de Core
-- [ ] Repositorio Git con el historial desde ahora
-- [ ] Memoria en la plantilla del centro, con diagramas y capturas
+## Hito 2 — Ventana y Medir (R02)
 
-## Hito 2 — Arquitectura completa (R06)
+- [ ] `ViewModelBase`, `RelayCommand` y `MeasurementsViewModel`
+- [ ] `MeasurementsWindow`: botones Medir, Filtrar y Exportar y DataGrid
+- [ ] `ButtonCommand` abre la ventana como modal sobre Revit
+- [ ] Lector de Revit en `MiPlugin/Services`: todos los elementos físicos del modelo, con el área convertida a m²
+- [ ] El ViewModel recibe la función de lectura (`Func<List<Measurement>>`) desde `ButtonCommand`
+- [ ] `MeasurementGrouping` (agrupación por categoría) y tests
+- [ ] Botón Medir: carga el DataGrid con los grupos y sus totales
 
-- [ ] Interfaz de lectura en Core e implementación en Revit
-- [ ] Servicio de cálculo de totales, hecho con TDD
-- [ ] Comando reducido a coordinar
-- [ ] Una sola clase para la cinta
+## Hito 3 — Filtrar (R03)
 
-## Hito 3 — Mediciones (R02)
+- [ ] Diccionario de categorías del filtro: muros, suelos, ventanas y puertas
+- [ ] Botón Filtrar: reduce el DataGrid y recalcula los totales
+- [ ] Tests del filtro en el ViewModel (`MiPlugin.Tests` referencia `MiPlugin.UI` y pasa a `net8.0-windows`)
 
-- [ ] Selección múltiple, previa o interactiva
-- [ ] Longitud, área y volumen de varios tipos de elemento
-- [ ] Ventana WPF de resultados con MVVM
-- [ ] Gestión de errores: sin selección, parámetros ausentes, cancelación
+## Hito 4 — Exportar (R04)
 
-## Hito 4 — Filtro de elementos (R03)
-
-- [ ] Filtro por categoría
-- [ ] Filtro por valor de parámetro
-- [ ] Ventana de filtro
-
-## Hito 5 — Modificación de parámetros (R04)
-
-- [ ] Cambio en una única transacción
-- [ ] Informe de elementos omitidos
-- [ ] Ventana de edición
-
-## Hito 6 — Exportación a Excel (R05)
-
-- [ ] Exportador con una fila por elemento y totales
+- [ ] `ExcelExporter` en `MiPlugin.UI` (ClosedXML); comprobar que su DLL no choca con otros plugins de Revit
+- [ ] Botón Exportar: un elemento por fila en la ruta que elija el usuario
 - [ ] Gestión de rutas no válidas y ficheros en uso
 
-## Hito 7 — Cierre
+## Hito 5 — Cierre
 
-- [ ] Integración continua que ejecute los tests
 - [ ] Planificación real, desviaciones y diagrama de Gantt
 - [ ] Conclusiones, referencias y revisión final de la memoria
 - [ ] Presentación
 
 ## Fuera de alcance
 
-Presupuestos, base de datos, autenticación, ventanas no modales, soporte de otras versiones de Revit e instalador.
+Modificación de parámetros, integración continua, presupuestos, base de datos, autenticación, ventanas no modales, soporte de otras versiones de Revit e instalador.

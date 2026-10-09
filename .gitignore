@@ -46,3 +46,6 @@ Desktop.ini
 *.pfx
 *.snk
 .env
+
+# Diagramas (solo locales)
+MiPlugin/docs/diagramas/
