@@ -15,7 +15,6 @@ namespace MiPlugin.Ribbon
             createTab(app);
             RibbonPanel panel = createPanelButton(app);
             createBtn(panel);
-
         }
         private static void createTab(UIControlledApplication app)
         {

@@ -2,7 +2,6 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using MiPlugin.Domain.Models;
 using System.Runtime.InteropServices;
 
 namespace MiPlugin.Command;
@@ -14,12 +13,6 @@ namespace MiPlugin.Command;
         {
         UIDocument uidoc = commandData.Application.ActiveUIDocument;
         Document doc = uidoc.Document;
-
-        
-
-
-        
-
 
         TaskDialog.Show("Title ", "It works");
             return Result.Succeeded;
