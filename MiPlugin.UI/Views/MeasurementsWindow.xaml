@@ -1,0 +1,46 @@
+﻿<Window x:Class="MiPlugin.UI.Views.MeasurementsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiPlugin.UI.Views"
+        mc:Ignorable="d"
+        Title="Mediciones" Height="500" Width="700"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Medir"    Command="{Binding MeasureCommand}" Width="90" Margin="0,0,5,0"/>
+            <Button Content="Filtrar"  Command="{Binding FilterCommand}"  Width="90" Margin="0,0,5,0"/>
+            <Button Content="Exportar" Command="{Binding ExportCommand}"  Width="90"/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Groups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander Margin="0,0,0,5">
+                            <Expander.Header>
+                                <TextBlock FontWeight="Bold">
+                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                            <Run Text=" — "/>
+                            <Run Text="{Binding Summary, Mode=OneWay}"/>
+                                </TextBlock>
+                            </Expander.Header>
+
+                            <DataGrid ItemsSource="{Binding Items}"
+                                AutoGenerateColumns="False" IsReadOnly="True"
+                                HeadersVisibility="Column" Margin="20,5,0,5">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Categoría" Binding="{Binding Category}"/>
+                                    <DataGridTextColumn Header="Familia"   Binding="{Binding Family}" Width="*"/>
+                                    <DataGridTextColumn Header="Cantidad"  Binding="{Binding Quantity, StringFormat=N2}"/>
+                                    <DataGridTextColumn Header="Unidad"    Binding="{Binding Unit}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

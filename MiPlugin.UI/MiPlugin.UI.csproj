@@ -11,9 +11,4 @@
     <ProjectReference Include="..\MiPlugin.Domain\MiPlugin.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>

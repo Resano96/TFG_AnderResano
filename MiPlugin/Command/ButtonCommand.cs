@@ -1,21 +1,37 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using System.Runtime.InteropServices;
+
+using MiPlugin.Domain.Models;
+using MiPlugin.UI.ViewModels;
+using MiPlugin.UI.Views;
+
+using System.Windows.Interop;
 
 namespace MiPlugin.Command;
 
     [Transaction(TransactionMode.Manual)]
-    internal class ButtonCommand : IExternalCommand
+    public class ButtonCommand : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        private static List<Measurement> FakeData() => new()
         {
-        UIDocument uidoc = commandData.Application.ActiveUIDocument;
-        Document doc = uidoc.Document;
+        new Measurement { Id = "1", Category = "Suelos",  Family = "Suelo genérico 30cm", Area = 12 },
+        new Measurement { Id = "2", Category = "Suelos",  Family = "Suelo genérico 30cm", Area = 18 },
+        new Measurement { Id = "3", Category = "Puertas", Family = "Puerta simple 80x210" },
+        new Measurement { Id = "4", Category = "Puertas", Family = "Puerta doble 160x210" },
+        };
 
-        TaskDialog.Show("Title ", "It works");
-            return Result.Succeeded;
-            
+
+
+
+    public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+        var viewModel = new MeasurementsViewModel(FakeData);
+        var window = new MeasurementsWindow(viewModel);
+
+        new WindowInteropHelper(window).Owner = commandData.Application.MainWindowHandle;
+        window.ShowDialog();
+
+        return Result.Succeeded;
         }
     }
