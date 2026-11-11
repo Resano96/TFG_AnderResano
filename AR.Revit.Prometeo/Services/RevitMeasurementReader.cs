@@ -63,8 +63,22 @@ namespace AR.Revit.Prometeo.Services
                 Category = element.Category.Name,
                 Family = type?.FamilyName ?? string.Empty,
                 TypeName = type?.Name ?? element.Name,
-                Area = ReadArea(element)
+                Area = ReadArea(element),
+                Kind = ToKind(element.Category),
             };
         }
+        /// <summary>
+        /// Traduce la categoria de Revit al enum propio
+        /// </summary>
+        /// <param name="category">Categoria del elemento </param>
+        /// <returns>El tipo de elemento o other si no coincide</returns>
+        private static ElementKind ToKind(Category category) => category.BuiltInCategory switch
+        {
+            BuiltInCategory.OST_Walls => ElementKind.Wall,
+            BuiltInCategory.OST_Floors => ElementKind.Floor,
+            BuiltInCategory.OST_Windows => ElementKind.Window,
+            BuiltInCategory.OST_Doors => ElementKind.Door,
+            _ => ElementKind.Other
+        };
     }
 }

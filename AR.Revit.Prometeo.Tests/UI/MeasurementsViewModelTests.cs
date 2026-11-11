@@ -75,16 +75,58 @@ public class MeasurementsViewModelTests
         Assert.Empty(viewModel.Groups);
     }
 
-    // Filtrar y Exportar aún no están implementados: estos tests fallarán (a propósito)
-    // cuando los implementes, y entonces habrá que sustituirlos por tests de su comportamiento.
-    [Fact]
-    public void FilterCommand_IsDisabledForNow()
+    private static List<Measurement> MixedData() => new()
     {
-        var viewModel = new MeasurementsViewModel(FakeData);
+        new Measurement { Id = "1", Category = "Muros",     Kind = ElementKind.Wall, Area = 20 },
+        new Measurement { Id = "2", Category = "Puertas",   Kind = ElementKind.Door },
+        new Measurement { Id = "3", Category = "Mobiliario", Kind = ElementKind.Other },
+        new Measurement { Id = "4", Category = "Sanitarios", Kind = ElementKind.Other },
+    };
 
-        Assert.False(viewModel.FilterCommand.CanExecute(null));
+    [Fact]
+    public void FilterCommand_CanAlwaysExecute()
+    {
+        var viewModel = new MeasurementsViewModel(MixedData);
+
+        Assert.True(viewModel.FilterCommand.CanExecute(null));
     }
 
+    [Fact]
+    public void FilterCommand_ShowsOnlyMainGroups()
+    {
+        var viewModel = new MeasurementsViewModel(MixedData);
+
+        viewModel.FilterCommand.Execute(null);
+
+        Assert.Equal(new[] { "Muros", "Puertas" }, viewModel.Groups.Select(g => g.Name));
+    }
+
+    [Fact]
+    public void FilterCommand_WorksWithoutMeasuringFirst()
+    {
+        // Filtrar lee el modelo por sí mismo: no depende de haber pulsado Medir
+        var calls = 0;
+        var viewModel = new MeasurementsViewModel(() => { calls++; return MixedData(); });
+
+        viewModel.FilterCommand.Execute(null);
+
+        Assert.Equal(1, calls);
+        Assert.NotEmpty(viewModel.Groups);
+    }
+
+    [Fact]
+    public void MeasureAfterFilter_ShowsAllGroupsAgain()
+    {
+        var viewModel = new MeasurementsViewModel(MixedData);
+
+        viewModel.FilterCommand.Execute(null);
+        viewModel.MeasureCommand.Execute(null);
+
+        Assert.Equal(4, viewModel.Groups.Count);
+    }
+
+    // Exportar aún no está implementado: este test fallará (a propósito) cuando lo implementes,
+    // y entonces habrá que sustituirlo por tests de su comportamiento.
     [Fact]
     public void ExportCommand_IsDisabledForNow()
     {

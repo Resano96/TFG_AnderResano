@@ -20,21 +20,20 @@ namespace AR.Revit.Prometeo.UI.ViewModels
         {
             _readModel = readModel;
             MeasureCommand = new RelayCommand(Measure);
-            FilterCommand = new RelayCommand(() => { }, () => false);
+            FilterCommand = new RelayCommand(Filter);
             ExportCommand = new RelayCommand(() => { }, () => false);
-
         }
-        private void Measure()
+        private void Measure() => ShowGroups(_readModel());
+
+        private void Filter() => ShowGroups(MeasurementFilter.MainElements(_readModel()));
+
+        private void ShowGroups(IEnumerable<Measurement> measurements)
         {
-            var measurements = _readModel();
             var groups = MeasurementGrouping.ByCategory(measurements);
 
             Groups.Clear();
             foreach (var group in groups)
-            {
                 Groups.Add(group);
-            }
         }
     }
-    
 }

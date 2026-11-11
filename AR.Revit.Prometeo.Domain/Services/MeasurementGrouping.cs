@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AR.Revit.Prometeo.Domain.Models;
+﻿using AR.Revit.Prometeo.Domain.Models;
 
 namespace AR.Revit.Prometeo.Domain.Services
 {

@@ -45,4 +45,13 @@ public class MeasurementTests
         Assert.Equal(0, measurement.Quantity);
         Assert.Equal("m²", measurement.Unit);
     }
+
+    [Fact]
+    public void Kind_ByDefault_IsOther()
+    {
+        // Si el lector no reconoce la categoría, el elemento queda fuera del filtro
+        var measurement = new Measurement();
+
+        Assert.Equal(ElementKind.Other, measurement.Kind);
+    }
 }

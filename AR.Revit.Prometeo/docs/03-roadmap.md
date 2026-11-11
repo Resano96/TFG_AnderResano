@@ -15,25 +15,25 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 - [x] `Measurement` y `MeasurementGroup`
 - [x] `MiPlugin.Infrastructure` eliminado (D15)
 - [ ] Correcciones: `ButtonCommand` público, `OnShutdown` sin excepción
-- [ ] Quitar `Perimeter` y `TotalPerimeter` de `Measurement` y `MeasurementGroup`
+- [x] Quitar `Perimeter` y `TotalPerimeter` de `Measurement` y `MeasurementGroup`
 - [x] Borrar la carpeta sobrante `MiPlugin.Core`
 - [ ] Memoria de la primera entrega parcial
 
 ## Hito 2 — Ventana y Medir (R02)
 
-- [ ] `ViewModelBase`, `RelayCommand` y `MeasurementsViewModel`
-- [ ] `MeasurementsWindow`: botones Medir, Filtrar y Exportar y DataGrid
-- [ ] `ButtonCommand` abre la ventana como modal sobre Revit
+- [x] `ViewModelBase`, `RelayCommand` y `MeasurementsViewModel`
+- [x] `MeasurementsWindow`: botones Medir, Filtrar y Exportar y DataGrid
+- [x] `ButtonCommand` abre la ventana como modal sobre Revit
 - [x] Lector de Revit en `AR.Revit.Prometeo/Services`: todos los elementos físicos del modelo; área en m² solo para anfitriones (`HostObject`)
-- [ ] El ViewModel recibe la función de lectura (`Func<List<Measurement>>`) desde `ButtonCommand`
-- [ ] `MeasurementGrouping` (agrupación por categoría) y tests
-- [ ] Botón Medir: carga el DataGrid con los grupos y sus totales
+- [x] El ViewModel recibe la función de lectura (`Func<List<Measurement>>`) desde `ButtonCommand`
+- [x] `MeasurementGrouping` (agrupación por categoría) y tests
+- [x] Botón Medir: carga el DataGrid con los grupos y sus totales
 
 ## Hito 3 — Filtrar (R03)
 
-- [ ] Diccionario de categorías del filtro: muros, suelos, ventanas y puertas
-- [ ] Botón Filtrar: reduce el DataGrid y recalcula los totales
-- [ ] Tests del filtro en el ViewModel (`AR.Revit.Prometeo.Tests` referencia `AR.Revit.Prometeo.UI` y pasa a `net8.0-windows`)
+- [x] Tipos del filtro: enum `ElementKind` en Domain (muro, suelo, ventana, puerta); el lector lo asigna desde `BuiltInCategory`
+- [x] Botón Filtrar: reduce el DataGrid y recalcula los totales (`MeasurementFilter`)
+- [x] Tests del filtro en Domain y en el ViewModel
 
 ## Hito 4 — Exportar (R04)
 

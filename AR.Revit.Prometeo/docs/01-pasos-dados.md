@@ -119,3 +119,7 @@ Memoria y documentación corregidas: la versión anterior describía una medici�
 - `ButtonCommand` usa el lector real en lugar de los datos de prueba, comprueba que haya un modelo abierto y captura errores (`Result.Failed` con mensaje).
 - Tabla: columnas Tipo e Id para distinguir elementos de la misma familia; números con el formato del idioma del sistema.
 - Corregida una errata en la ruta del `.addin` tras el renombrado.
+- Filtrar: enum `ElementKind` en Domain (Other, Wall, Floor, Window, Door). El lector lo asigna desde `BuiltInCategory`, que no depende del idioma de Revit; Domain no conoce la API de Revit.
+- `MeasurementFilter.MainElements` deja solo los tipos principales, con la lista explícita en un `HashSet` para que añadir valores al enum no cambie el filtro.
+- El ViewModel comparte `ShowGroups` entre Medir y Filtrar; Filtrar vuelve a leer el modelo, así funciona sin pulsar Medir antes y muestra datos actualizados.
+- Tests del filtro (Domain y ViewModel); se sustituye el test que comprobaba que Filtrar estaba desactivado.
