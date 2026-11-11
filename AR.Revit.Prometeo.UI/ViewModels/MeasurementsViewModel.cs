@@ -11,7 +11,7 @@ namespace AR.Revit.Prometeo.UI.ViewModels
     public class MeasurementsViewModel : ViewModelBase
     {
         private readonly Func<List<Measurement>> _readModel;
-        public ObservableCollection<MeasurementGroup> Groups { get; } = new();
+        public ObservableCollection<MeasurementGroup> Groups { get; } = [];
         public ICommand MeasureCommand { get; }
         public ICommand FilterCommand { get; }
         public ICommand ExportCommand { get; }

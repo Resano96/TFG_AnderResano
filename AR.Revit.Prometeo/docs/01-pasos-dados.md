@@ -114,4 +114,8 @@ Memoria y documentación corregidas: la versión anterior describía una medici�
 
 - La solución pasa de `MiPlugin` a `AR.Revit.Prometeo`: carpetas, `.csproj`, `.slnx`, referencias entre proyectos, namespaces, XAML, `.addin` y documentación (`git mv`, conserva el historial).
 - Las entradas anteriores de este registro mantienen los nombres antiguos porque describen lo que se hizo en su momento.
-- En curso: `RevitMeasurementReader` en `AR.Revit.Prometeo/Services` (lectura del área con `HOST_AREA_COMPUTED` y conversión a m²).
+- `RevitMeasurementReader` en `AR.Revit.Prometeo/Services`: recoge las instancias de categorías con cantidades de material (`HasMaterialQuantities`), lee familia y tipo, y el área (`HOST_AREA_COMPUTED`, convertida a m²).
+- Solo se mide en m² lo que es anfitrión (`HostObject`: muros, suelos, cubiertas, techos). Las familias cargables (ventanas, sanitarios, luminarias…) también exponen un área, pero se cuentan en unidades.
+- `ButtonCommand` usa el lector real en lugar de los datos de prueba, comprueba que haya un modelo abierto y captura errores (`Result.Failed` con mensaje).
+- Tabla: columnas Tipo e Id para distinguir elementos de la misma familia; números con el formato del idioma del sistema.
+- Corregida una errata en la ruta del `.addin` tras el renombrado.

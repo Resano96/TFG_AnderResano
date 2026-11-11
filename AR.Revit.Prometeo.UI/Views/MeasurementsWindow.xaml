@@ -33,6 +33,8 @@
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Categoría" Binding="{Binding Category}"/>
                                     <DataGridTextColumn Header="Familia"   Binding="{Binding Family}" Width="*"/>
+                                    <DataGridTextColumn Header="Tipo" Binding="{Binding TypeName}" Width="*"/>
+                                    <DataGridTextColumn Header="Id"   Binding="{Binding Id}"/>
                                     <DataGridTextColumn Header="Cantidad"  Binding="{Binding Quantity, StringFormat=N2}"/>
                                     <DataGridTextColumn Header="Unidad"    Binding="{Binding Unit}"/>
                                 </DataGrid.Columns>

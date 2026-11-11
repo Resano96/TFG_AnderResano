@@ -24,7 +24,7 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 - [ ] `ViewModelBase`, `RelayCommand` y `MeasurementsViewModel`
 - [ ] `MeasurementsWindow`: botones Medir, Filtrar y Exportar y DataGrid
 - [ ] `ButtonCommand` abre la ventana como modal sobre Revit
-- [ ] Lector de Revit en `AR.Revit.Prometeo/Services`: todos los elementos físicos del modelo, con el área convertida a m²
+- [x] Lector de Revit en `AR.Revit.Prometeo/Services`: todos los elementos físicos del modelo; área en m² solo para anfitriones (`HostObject`)
 - [ ] El ViewModel recibe la función de lectura (`Func<List<Measurement>>`) desde `ButtonCommand`
 - [ ] `MeasurementGrouping` (agrupación por categoría) y tests
 - [ ] Botón Medir: carga el DataGrid con los grupos y sus totales

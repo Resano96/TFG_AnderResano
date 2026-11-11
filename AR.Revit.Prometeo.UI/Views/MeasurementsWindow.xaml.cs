@@ -1,5 +1,7 @@
 ﻿using AR.Revit.Prometeo.UI.ViewModels;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Markup;
 
 
 namespace AR.Revit.Prometeo.UI.Views
@@ -11,6 +13,7 @@ namespace AR.Revit.Prometeo.UI.Views
     {
         public MeasurementsWindow(MeasurementsViewModel viewModel)
         {
+            Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
             InitializeComponent();
             DataContext = viewModel;
         }
