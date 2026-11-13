@@ -13,7 +13,7 @@
             <Button Content="Filtrar"  Command="{Binding FilterCommand}"  Width="90" Margin="0,0,5,0"/>
             <Button Content="Exportar" Command="{Binding ExportCommand}"  Width="90"/>
         </StackPanel>
-
+        <TextBlock DockPanel.Dock="Bottom" Text="{Binding Status}" Margin="0,8,0,0"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Groups}">
                 <ItemsControl.ItemTemplate>

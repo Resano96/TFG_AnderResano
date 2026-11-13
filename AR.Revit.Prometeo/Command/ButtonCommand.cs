@@ -1,4 +1,5 @@
 ﻿using AR.Revit.Prometeo.Services;
+using AR.Revit.Prometeo.UI.Services;
 using AR.Revit.Prometeo.UI.ViewModels;
 using AR.Revit.Prometeo.UI.Views;
 using Autodesk.Revit.Attributes;
@@ -25,7 +26,7 @@ public class ButtonCommand : IExternalCommand
 
             // 2. Lector del modelo de Revit
             var reader = new RevitMeasurementReader(doc);
-            var viewModel = new MeasurementsViewModel(reader.ReadModel);
+            var viewModel = new MeasurementsViewModel(reader.ReadModel, FileDialogs.AskExcelPath);
 
             // 3. Ventana modal con Revit como propietaria
             var window = new MeasurementsWindow(viewModel);

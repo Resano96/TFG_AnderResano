@@ -123,3 +123,13 @@ Memoria y documentación corregidas: la versión anterior describía una medici�
 - `MeasurementFilter.MainElements` deja solo los tipos principales, con la lista explícita en un `HashSet` para que añadir valores al enum no cambie el filtro.
 - El ViewModel comparte `ShowGroups` entre Medir y Filtrar; Filtrar vuelve a leer el modelo, así funciona sin pulsar Medir antes y muestra datos actualizados.
 - Tests del filtro (Domain y ViewModel); se sustituye el test que comprobaba que Filtrar estaba desactivado.
+
+## 12-13/11/2026 — Exportar a Excel
+
+- ClosedXML en `AR.Revit.Prometeo.UI`. Antes de programar se comprobó que sus dependencias (`DocumentFormat.OpenXml`, `System.IO.Packaging`, `SixLabors.Fonts`) no están en la carpeta de Revit 2025, así que no hay conflicto de versiones.
+- `EnableDynamicLoading` en el proyecto del plugin: una biblioteca de clases no copia por defecto las DLL de sus paquetes NuGet, y Revit no encontraría ClosedXML. El paquete de la API de Revit se marca con `ExcludeAssets=runtime` para que sus DLL no se copien (la salida pasa de 49 MB a 9,7 MB).
+- `ExcelExporter.Export`: cabeceras en negrita, un elemento por fila y la cantidad como número.
+- El ViewModel guarda en `_shown` lo que se está mostrando, de modo que se exporta lo que se ve (todo o filtrado). Exportar se desactiva mientras no hay datos.
+- El diálogo «Guardar como» se inyecta en el ViewModel como `Func<string?>` (`FileDialogs.AskExcelPath`), igual que la lectura del modelo: el ViewModel no abre ventanas y en los tests se sustituye por una ruta temporal.
+- Si el fichero está abierto en Excel, se captura solo `IOException` y se muestra un aviso en la propiedad `Status`, enlazada a la ventana con `OnPropertyChanged`; la ventana no se cierra.
+- Tests de `ExcelExporter` (escriben y releen un .xlsx temporal) y de Exportar en el ViewModel. En los proyectos con `UseWPF` hay que añadir `using System.IO` a mano, porque .NET lo excluye de los usings implícitos para evitar el conflicto con `System.Windows.Shapes.Path`.

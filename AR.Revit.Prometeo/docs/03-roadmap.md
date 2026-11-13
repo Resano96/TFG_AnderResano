@@ -37,9 +37,9 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 
 ## Hito 4 — Exportar (R04)
 
-- [ ] `ExcelExporter` en `AR.Revit.Prometeo.UI` (ClosedXML); comprobar que su DLL no choca con otros plugins de Revit
-- [ ] Botón Exportar: un elemento por fila en la ruta que elija el usuario
-- [ ] Gestión de rutas no válidas y ficheros en uso
+- [x] `ExcelExporter` en `AR.Revit.Prometeo.UI` (ClosedXML); sin conflicto con las DLL de Revit 2025
+- [x] Botón Exportar: un elemento por fila en la ruta que elija el usuario
+- [x] Gestión de ficheros en uso (`IOException`): aviso en la ventana sin cerrarla
 
 ## Hito 5 — Cierre
 
