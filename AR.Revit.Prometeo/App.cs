@@ -15,8 +15,9 @@ namespace AR.Revit.Prometeo
 
         public Result OnStartup(UIControlledApplication application)
         {
-            CreateButton.CreateTabPanelButton(application);
+            CreateMenu.Create(application);
             return Result.Succeeded;
         }
+
     }
 }
