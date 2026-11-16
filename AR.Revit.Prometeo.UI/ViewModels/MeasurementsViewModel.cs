@@ -1,4 +1,4 @@
-﻿using AR.Revit.Prometeo.Domain.Models;
+using AR.Revit.Prometeo.Domain.Models;
 using AR.Revit.Prometeo.Domain.Services;
 using AR.Revit.Prometeo.UI.Commands;
 using AR.Revit.Prometeo.UI.Services;
@@ -29,6 +29,12 @@ namespace AR.Revit.Prometeo.UI.ViewModels
         // Mensaje que se muestra al pie de la ventana (resultado de exportar).
         private string _status = string.Empty;
 
+        // Variable para cambiar de color al seleccionar 
+        private bool _isFiltered;
+
+        // Indica si el último mensaje de estado es un error (la ventana lo pinta en rojo).
+        private bool _isError;
+
         /// <summary>Mensaje de estado para el usuario (exportación correcta o error).</summary>
         public string Status
         {
@@ -39,6 +45,31 @@ namespace AR.Revit.Prometeo.UI.ViewModels
                 OnPropertyChanged(); // Avisa a la vista para que actualice el texto
             }
         }
+
+        /// <summary>Indica si la tabla muestra solo los elementos principales (Filtrar) o todos (Medir).</summary>
+        public bool IsFiltered
+        {
+            get => _isFiltered;
+            private set
+            {
+                _isFiltered = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>Indica si <see cref="Status"/> es un error; la ventana lo usa para el color y el icono.</summary>
+        public bool IsError
+        {
+            get => _isError;
+            private set
+            {
+                _isError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>Número de elementos que muestra la tabla (contador del menú y estado vacío).</summary>
+        public int ShownCount => _shown.Count;
 
         /// <summary>Grupos por categoría que muestra la ventana. Es una ObservableCollection:
         /// avisa a la vista cada vez que se añade o se quita un grupo, y la tabla se refresca sola.</summary>
@@ -69,12 +100,20 @@ namespace AR.Revit.Prometeo.UI.ViewModels
         }
 
         // Lee el modelo completo y lo muestra.
-        private void Measure() => ShowGroups(_readModel());
+        private void Measure()
+        {
+            IsFiltered = false;
+            ShowGroups(_readModel());
+        }
 
         // Lee el modelo, se queda solo con los elementos principales y los muestra.
         // Vuelve a leer en lugar de filtrar lo que hay en pantalla: funciona sin pulsar Medir antes
         // y refleja los cambios hechos en Revit.
-        private void Filter() => ShowGroups(MeasurementFilter.MainElements(_readModel()));
+        private void Filter()
+        {
+            IsFiltered = true;
+            ShowGroups(MeasurementFilter.MainElements(_readModel()));
+        }
 
         // Parte común de Medir y Filtrar (DRY): guarda la lista, agrupa por categoría y rellena la tabla.
         // Como todo lo que se muestra pasa por aquí, _shown siempre coincide con lo que se ve.
@@ -82,6 +121,7 @@ namespace AR.Revit.Prometeo.UI.ViewModels
         {
             // Copia propia de la lista, para exportar después lo que se está viendo.
             _shown = measurements.ToList();
+            OnPropertyChanged(nameof(ShownCount)); // ShownCount depende de _shown: hay que avisar a mano
 
             // La agrupación y los totales están en el dominio, no en el ViewModel.
             var groups = MeasurementGrouping.ByCategory(_shown);
@@ -100,14 +140,15 @@ namespace AR.Revit.Prometeo.UI.ViewModels
             string? path = _askSavePath();
             if (path == null)
                 return; // El usuario ha cancelado
-
             try
             {
                 ExcelExporter.Export(_shown, path);
+                IsError = false;
                 Status = $"Exportado: {path}";
             }
             catch (IOException)
             {
+                IsError = true;
                 Status = "No se pudo guardar. ¿Está el fichero abierto en Excel?";
             }
         }
