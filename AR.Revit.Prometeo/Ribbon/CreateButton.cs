@@ -10,31 +10,25 @@ namespace AR.Revit.Prometeo.Ribbon
 {
     internal class CreateButton
     {
-        public static void CreateTabPanelButton(UIControlledApplication app) 
+        public static void CreateTabPanelButton(UIControlledApplication app, string tabName, string panelName, string btnName, string command) 
         {
-            createTab(app);
-            RibbonPanel panel = createPanelButton(app);
-            createBtn(panel);
+           CreateTab(app, tabName);
+            RibbonPanel panel = CreatePanelButton(app, tabName, panelName);
+           CreateBtn(panel, btnName, command);
         }
-        private static void createTab(UIControlledApplication app)
+        public static void CreateTab(UIControlledApplication app, string tabName)
         {
-            app.CreateRibbonTab(_tabName);
+            app.CreateRibbonTab(tabName);
         }
-        private static RibbonPanel createPanelButton(UIControlledApplication app)
+        public static RibbonPanel CreatePanelButton(UIControlledApplication app, string tabName, string panelName)
         {
-            return app.CreateRibbonPanel(_tabName, _panelName);
+            return app.CreateRibbonPanel(tabName, panelName);
         }
-        private static void createBtn(RibbonPanel panel)
+        public static void CreateBtn(RibbonPanel panel, string btnName, string command)
         {
             string route = Assembly.GetExecutingAssembly().Location;
-            PushButtonData btn = new PushButtonData("id_button", _btnName, route, typeof(Command.ButtonCommand).FullName);
+            PushButtonData btn = new("id_button",btnName, route, command);
             panel.AddItem(btn);
         }
-        //Variables
-        private static string _tabName = "TFG-AnderResano";
-        private static string _panelName = "TFG-AnderResano";
-        private static string _btnName = "TFG-AnderResano";
-
-
     }
 }

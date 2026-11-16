@@ -15,8 +15,12 @@ namespace AR.Revit.Prometeo
 
         public Result OnStartup(UIControlledApplication application)
         {
-            CreateButton.CreateTabPanelButton(application);
+            CreateButton.
+            CreateButton.CreateTabPanelButton(application, "AR_Tab", "AR_Panel", "AR_Medir", typeof(Command.ButtonCommand).FullName);
+            CreateButton.CreateTabPanelButton(application, "AR_Tab", "AR_Panel", "AR_Parametros", typeof(Command.ParamButton).FullName);
+
             return Result.Succeeded;
         }
+
     }
 }
