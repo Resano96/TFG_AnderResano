@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, 'feature/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: windows-latest          # tus tests usan WPF: necesitan Windows
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet test AR.Revit.Prometeo.Tests/AR.Revit.Prometeo.Tests.csproj -c Release
