@@ -72,7 +72,7 @@ namespace AR.Revit.Prometeo.Services
         /// </summary>
         /// <param name="category">Categoria del elemento </param>
         /// <returns>El tipo de elemento o other si no coincide</returns>
-        private static ElementKind ToKind(Category category) => category.BuiltInCategory switch
+        internal static ElementKind ToKind(Category category) => category.BuiltInCategory switch
         {
             BuiltInCategory.OST_Walls => ElementKind.Wall,
             BuiltInCategory.OST_Floors => ElementKind.Floor,
