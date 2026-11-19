@@ -39,9 +39,9 @@ Registro de decisiones del proyecto. Cada una indica el contexto, lo decidido, l
 - **Decisión**: convertir a métricas al leer el parámetro, antes de crear el `Measurement`.
 - **Consecuencia**: Domain trabaja siempre en metros.
 
-## D06 — Sin base de datos
+## D06 — Sin base de datos (actualizada el 19 de noviembre)
 
-- **Decisión**: persistencia en ficheros (configuración en JSON, resultados en Excel). Validado por el tutor.
+- **Decisión**: persistencia en ficheros, validada por el tutor. La única persistencia implementada es la exportación a Excel; la configuración del usuario en JSON queda como trabajo futuro.
 
 ## D07 — Sin autenticación
 
@@ -55,7 +55,7 @@ Registro de decisiones del proyecto. Cada una indica el contexto, lo decidido, l
 
 - **Decisión**: un único `.addin` de tipo `Application` que crea pestaña y botón al arrancar.
 
-## D10 — Alcance funcional: medir, filtrar y exportar (actualizada el 9 de octubre)
+## D10 — Alcance funcional: medir, filtrar y exportar (actualizada el 9 de octubre; columnas, ver D25)
 
 - **Contexto**: el planteamiento inicial incluía mediciones, filtro y modificación de parámetros.
 - **Decisión**: una ventana modal con tres botones y un DataGrid:
@@ -66,6 +66,8 @@ Registro de decisiones del proyecto. Cada una indica el contexto, lo decidido, l
 - **Motivo**: una función principal sólida y probada en lugar de tres a medias; encaja con el flujo diseñado en Miro.
 
 ## D11 — Medir lee todo el modelo; Filtrar trabaja sobre los datos ya leídos (actualizada el 9 de octubre)
+
+> **Sustituida en parte por D20**: Filtrar vuelve a leer el modelo y clasifica con `ElementKind`, no con un diccionario de nombres de categoría. El resto de D11 sigue vigente.
 
 - **Medir**: lee todos los elementos físicos del modelo con un `FilteredElementCollector`, excluyendo tipos y elementos no geométricos (vistas, materiales), que un colector sin filtrar también devuelve.
 - **Filtrar**: no vuelve a consultar Revit; filtra las mediciones ya cargadas con un diccionario de categorías (muros, suelos, ventanas y puertas). Es inmediato y se puede probar sin Revit.
@@ -116,3 +118,55 @@ Registro de decisiones del proyecto. Cada una indica el contexto, lo decidido, l
 
 - **Decisión**: las pruebas unitarias del dominio y de los ViewModels se escriben tras implementar cada funcionalidad, no antes (sin TDD estricto).
 - **Motivo**: el diseño de la API de Revit y de la ventana se está aprendiendo sobre la marcha; probar después de tener la funcionalidad estable evita reescribir tests.
+
+## D19 — Nombre de la solución: AR.Revit.Prometeo (11 de noviembre)
+
+- **Decisión**: renombrar `MiPlugin` a `AR.Revit.Prometeo` (carpetas, proyectos, espacios de nombres, XAML, `.addin` y documentación).
+- **Cómo**: con `git mv`, para que git registre los cambios como renombrados y conserve el historial de cada archivo.
+- **Consecuencia**: las entradas antiguas de la bitácora mantienen los nombres de su momento.
+
+## D20 — Superficie solo en elementos anfitriones (11 de noviembre)
+
+- **Contexto**: al probar en Revit, sanitarios, luminarias y ventanas aparecían medidos en m², porque las familias cargables también exponen un área calculada (`HOST_AREA_COMPUTED`).
+- **Decisión**: leer el área solo si el elemento es un `HostObject` (muros, suelos, cubiertas, techos); el resto cuenta como 1 ud.
+- **Descartado**: una lista de categorías (hay que mantenerla) y comparar nombres de categoría (depende del idioma de Revit).
+- **Lectura**: el colector se queda con las instancias de categorías con cantidades de material (`HasMaterialQuantities`), que descarta vistas, niveles, cotas y tipos.
+
+## D21 — Filtrar: clasificación propia e independiente del idioma (11 de noviembre)
+
+- **Decisión**: un enum `ElementKind` (Other, Wall, Floor, Window, Door) en Domain. El lector lo asigna desde la categoría interna de Revit (`BuiltInCategory`), y `MeasurementFilter` conserva los tipos de una lista explícita (`HashSet`).
+- **Motivo**: los nombres de categoría cambian con el idioma de Revit; `BuiltInCategory` no. Domain no depende de la API de Revit, así que el filtro se prueba sin abrirlo.
+- **Lista explícita y no "todo menos Other"**: añadir un valor al enum no cambia el filtro sin decidirlo.
+- **Filtrar vuelve a leer el modelo** (sustituye a parte de D11): Medir y Filtrar comparten el método que rellena la tabla (`ShowGroups`) y solo cambian los datos que le pasan. Así Filtrar funciona sin pulsar antes Medir y refleja los cambios hechos en Revit.
+
+## D22 — Exportar lo que se ve (13 de noviembre)
+
+- **Decisión**: el ViewModel guarda las mediciones mostradas cada vez que rellena la tabla, y Exportar usa esa lista: todo o filtrado, según la vista. El botón está desactivado mientras no hay datos (`CanExecute`).
+- **Formato**: un elemento por fila con cabeceras (Categoría, Familia, Tipo, Id, Cantidad, Unidad); la cantidad se guarda como número para poder sumarla en Excel.
+- **Errores**: solo se captura `IOException` (fichero abierto o bloqueado) y se muestra un aviso en la ventana, que sigue abierta. Los errores inesperados no se ocultan: los recoge el comando y Revit los muestra.
+
+## D23 — Diálogo de guardado inyectado en el ViewModel (13 de noviembre)
+
+- **Decisión**: el ViewModel recibe una función `Func<string?>` que pide la ruta y devuelve `null` si el usuario cancela. En Revit es `FileDialogs.AskExcelPath` (diálogo «Guardar como»); en las pruebas, una ruta temporal.
+- **Motivo**: el ViewModel no abre ventanas; si lo hiciera, las pruebas se quedarían esperando a que alguien eligiera un fichero. Es el mismo patrón que la lectura del modelo (D11).
+
+## D24 — Dependencias del plugin dentro de Revit (12 de noviembre)
+
+- **Contexto**: Revit carga sus propias bibliotecas; una dependencia con otra versión puede fallar en tiempo de ejecución aunque compile.
+- **Comprobación previa**: las dependencias de ClosedXML (`DocumentFormat.OpenXml`, `System.IO.Packaging`, `SixLabors.Fonts`) no están en la carpeta de Revit 2025, así que no hay conflicto.
+- **Decisión**: `EnableDynamicLoading` en el proyecto del plugin, porque una biblioteca de clases no copia por defecto las DLL de sus paquetes; y `ExcludeAssets=runtime` en el paquete de la API de Revit, para no copiar sus DLL (la salida pasa de 49 MB a 9,7 MB).
+- **Alternativa preparada**: exportar a CSV si ClosedXML hubiera dado conflicto.
+
+## D25 — Interfaz: columnas y formato (11 de noviembre)
+
+- **Decisión**: añadir las columnas Tipo e Id a la tabla, porque los elementos de una misma familia (por ejemplo, «Muro básico») no se distinguían. El Id permite localizarlos en Revit con «Seleccionar por ID».
+- **Categoría**: no se muestra dentro de cada grupo, porque ya aparece en su cabecera; el Excel sí la incluye.
+- **Formato numérico**: la ventana usa el idioma del sistema (`XmlLanguage`), para que los totales y la tabla usen el mismo separador decimal.
+
+## D26 — Tema oscuro con estilos propios (13 de noviembre)
+
+- **Decisión**: rediseño con tema oscuro y acento verde a partir de bocetos: menú lateral con iconos, grupos como tarjetas con el total a la derecha, tabla sin líneas, estado vacío y barra de estado con color según el resultado.
+- **Cómo**: estilos y plantillas propios en `Window.Resources` (colores como recursos con nombre, `ControlTemplate` para botones y grupos, estilos implícitos para la tabla) y `DataTrigger` enlazados al ViewModel (`IsFiltered`, `IsError`, `ShownCount`), sin código en la vista.
+- **Descartado**: librerías de temas (MaterialDesign, WPF-UI), por el riesgo de conflicto de DLL dentro de Revit y porque un plugin no tiene `App.xaml` donde cargarlas.
+- **Iconos**: fuente Segoe Fluent Icons (Windows 11) con Segoe MDL2 Assets como respaldo (Windows 10), sin imágenes ni dependencias.
+- **Contraste**: el verde de los botones (`#088923`) lleva texto blanco; para texto verde sobre fondo oscuro se usa un tono más claro (`#4CC66A`).

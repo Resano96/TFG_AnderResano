@@ -133,3 +133,15 @@ Memoria y documentación corregidas: la versión anterior describía una medici�
 - El diálogo «Guardar como» se inyecta en el ViewModel como `Func<string?>` (`FileDialogs.AskExcelPath`), igual que la lectura del modelo: el ViewModel no abre ventanas y en los tests se sustituye por una ruta temporal.
 - Si el fichero está abierto en Excel, se captura solo `IOException` y se muestra un aviso en la propiedad `Status`, enlazada a la ventana con `OnPropertyChanged`; la ventana no se cierra.
 - Tests de `ExcelExporter` (escriben y releen un .xlsx temporal) y de Exportar en el ViewModel. En los proyectos con `UseWPF` hay que añadir `using System.IO` a mano, porque .NET lo excluye de los usings implícitos para evitar el conflicto con `System.Windows.Shapes.Path`.
+
+## 13/11/2026 — Rediseño de la interfaz
+
+- Tres bocetos de la ventana (claro, oscuro y con cabecera); se elige el oscuro con acento verde, el mismo de la barra de título de Windows.
+- Colores como recursos con nombre en `Window.Resources`. Los atributos de la propia `Window` usan `DynamicResource`, porque `StaticResource` no encuentra recursos definidos más abajo en el mismo elemento (fallaba al abrir la ventana).
+- Menú lateral en dos columnas (`Grid`), botones con `ControlTemplate` propio (esquinas redondeadas, estados de ratón y desactivado) e iconos de la fuente Segoe Fluent Icons.
+- El botón de la vista activa se marca en verde con un `DataTrigger` sobre `IsFiltered`, una propiedad nueva del ViewModel.
+- Grupos como tarjetas: plantilla propia del `Expander`, con un `ToggleButton` enlazado a `IsExpanded` y el total alineado a la derecha.
+- Tabla oscura con estilos implícitos de `DataGrid`, cabeceras y celdas; la categoría deja de mostrarse en la tabla porque ya está en la cabecera del grupo.
+- Estado vacío («Pulsa Medir…») y contador de elementos, enlazados a `ShownCount`; barra de estado verde o roja según `IsError`.
+- Problema: los textos de los grupos salían en negro. Los controles de Windows traen su propio color de texto en el estilo por defecto, que gana al heredado de la ventana; se fija el color en el estilo de cada control.
+

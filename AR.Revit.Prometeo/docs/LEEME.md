@@ -13,6 +13,5 @@
 ## Pendiente
 
 - Gantt y horas reales al cierre de cada bloque
-- Capturas del plugin en Revit
-- Bocetos de las ventanas
+- Capturas del plugin en Revit (ventana vacía, tras Medir, tras Filtrar, grupo desplegado y Excel exportado)
 - Logotipos de las tecnologías

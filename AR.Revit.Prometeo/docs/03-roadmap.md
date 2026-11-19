@@ -8,16 +8,16 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 - [x] Pestaña, panel y botón propios
 - [x] Repositorio Git en GitHub con `.gitignore`
 
-## Hito 1 — Estructura y modelo (en curso)
+## Hito 1 — Estructura y modelo (hecho)
 
 - [x] Solución en proyectos: Domain, UI, AR.Revit.Prometeo y Tests
 - [x] Código traducido a inglés
 - [x] `Measurement` y `MeasurementGroup`
 - [x] `MiPlugin.Infrastructure` eliminado (D15)
-- [ ] Correcciones: `ButtonCommand` público, `OnShutdown` sin excepción
+- [x] Correcciones: `ButtonCommand` público, `OnShutdown` sin excepción
 - [x] Quitar `Perimeter` y `TotalPerimeter` de `Measurement` y `MeasurementGroup`
 - [x] Borrar la carpeta sobrante `MiPlugin.Core`
-- [ ] Memoria de la primera entrega parcial
+- [x] Memoria de la primera entrega parcial
 
 ## Hito 2 — Ventana y Medir (R02)
 
@@ -41,8 +41,17 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 - [x] Botón Exportar: un elemento por fila en la ruta que elija el usuario
 - [x] Gestión de ficheros en uso (`IOException`): aviso en la ventana sin cerrarla
 
+## Hito 4b — Interfaz (hecho)
+
+- [x] Columnas Tipo e Id y formato numérico según el idioma del sistema
+- [x] Tema oscuro: menú lateral con iconos, botón activo, tarjetas, tabla, estado vacío y barra de estado
+- [x] ViewModel: `IsFiltered`, `IsError` y `ShownCount` para la vista
+
 ## Hito 5 — Cierre
 
+- [ ] Tests de `IsFiltered`, `IsError` y `ShownCount`
+- [ ] Pruebas en Revit con un modelo vacío y uno grande
+- [ ] Capturas para la memoria y el README
 - [ ] Planificación real, desviaciones y diagrama de Gantt
 - [ ] Conclusiones, referencias y revisión final de la memoria
 - [ ] Presentación
