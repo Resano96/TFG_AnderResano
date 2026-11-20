@@ -44,7 +44,7 @@ Bibliotecas externas: ClosedXML (exportación a Excel) y xUnit (pruebas). El pro
 ## Uso
 
 1. Abrir un modelo.
-2. En la pestaña **TFG-AnderResano**, pulsar el botón.
+2. En la pestaña **AR_Prometeo**, panel **AR_Solution**, pulsar el botón **AR_medir**.
 3. En la ventana se abre un menú lateral con tres acciones. El botón de la vista activa se marca en verde.
    - **Medir** carga todos los elementos, agrupados por categoría. Cada grupo muestra su total y se despliega para ver sus elementos (familia, tipo, Id, cantidad y unidad). El Id permite localizarlos en Revit con *Gestionar → Seleccionar por ID*.
    - **Filtrar** deja solo muros, suelos, ventanas y puertas. Para volver a ver todo, pulsar de nuevo **Medir**.

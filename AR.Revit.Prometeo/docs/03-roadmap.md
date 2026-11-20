@@ -1,6 +1,6 @@
 # Roadmap
 
-Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los códigos R0x remiten al RFTP de la memoria.
+Plan de trabajo por hitos, del 28 de septiembre al 7 de diciembre de 2026 (entregas parciales el 9 de octubre y el 20 de noviembre). Los códigos R0x remiten al RFTP de la memoria.
 
 ## Hito 0 — Base del plugin (hecho)
 
@@ -49,6 +49,8 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 
 ## Hito 5 — Cierre
 
+- [x] Integración continua con GitHub Actions
+- [x] Cinta definida en un diccionario (`CreateMenu`)
 - [ ] Tests de `IsFiltered`, `IsError` y `ShownCount`
 - [ ] Pruebas en Revit con un modelo vacío y uno grande
 - [ ] Capturas para la memoria y el README
@@ -58,4 +60,4 @@ Plan de trabajo por hitos, del 28 de septiembre al 1 de diciembre de 2026. Los c
 
 ## Fuera de alcance
 
-Modificación de parámetros, integración continua, presupuestos, base de datos, autenticación, ventanas no modales, soporte de otras versiones de Revit e instalador.
+Modificación de parámetros, presupuestos, base de datos, autenticación, ventanas no modales, soporte de otras versiones de Revit e instalador.

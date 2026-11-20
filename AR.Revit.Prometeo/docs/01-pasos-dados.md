@@ -145,3 +145,8 @@ Memoria y documentación corregidas: la versión anterior describía una medici�
 - Estado vacío («Pulsa Medir…») y contador de elementos, enlazados a `ShownCount`; barra de estado verde o roja según `IsError`.
 - Problema: los textos de los grupos salían en negro. Los controles de Windows traen su propio color de texto en el estilo por defecto, que gana al heredado de la ventana; se fija el color en el estilo de cada control.
 
+## 20/11/2026 — Cinta con `CreateMenu`
+
+- `CreateButton` se sustituye por `CreateMenu`: la cinta se define en un diccionario de paneles y botones (tuplas de id, texto y comando), y la clase es estática, sin guardar `UIControlledApplication` en un campo.
+- Errores corregidos por el camino: crear la pestaña dos veces lanza una excepción, y dos botones con el mismo id interno en un panel también.
+- Integración continua con GitHub Actions (19/11): `.github/workflows/tests.yml` ejecuta las pruebas en un servidor Windows en cada cambio.

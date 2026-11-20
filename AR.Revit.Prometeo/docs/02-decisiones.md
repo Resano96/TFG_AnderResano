@@ -170,3 +170,9 @@ Registro de decisiones del proyecto. Cada una indica el contexto, lo decidido, l
 - **Descartado**: librerías de temas (MaterialDesign, WPF-UI), por el riesgo de conflicto de DLL dentro de Revit y porque un plugin no tiene `App.xaml` donde cargarlas.
 - **Iconos**: fuente Segoe Fluent Icons (Windows 11) con Segoe MDL2 Assets como respaldo (Windows 10), sin imágenes ni dependencias.
 - **Contraste**: el verde de los botones (`#088923`) lleva texto blanco; para texto verde sobre fondo oscuro se usa un tono más claro (`#4CC66A`).
+
+## D27 — Cinta definida en un diccionario (20 de noviembre)
+
+- **Decisión**: `CreateMenu` (clase estática) sustituye a `CreateButton`. La cinta se describe en un diccionario: cada clave es un panel y su valor, la lista de botones del panel, cada uno como una tupla (id, texto, comando). Crea la pestaña una vez y recorre el diccionario para crear paneles y botones.
+- **Motivo**: añadir un botón o un panel es añadir una línea al diccionario, sin tocar la lógica de creación. Cada botón lleva un id distinto, porque Revit no admite dos botones con el mismo nombre interno en un panel.
+- **Sin estado**: `UIControlledApplication` se pasa como parámetro a cada método en lugar de guardarse en un campo estático.
